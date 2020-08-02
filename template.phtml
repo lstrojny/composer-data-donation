@@ -1,0 +1,128 @@
+<html
+<head>
+<title>Composer data donation</title>
+<style>
+body {
+    font-family: sans-serif;
+    max-width: 80em;
+    margin: 2em;
+    line-height: 150%;
+}
+h1 {
+    font-size: 3em;
+}
+h2 {
+    font-size: 2em;
+}
+label {
+    display: block;
+}
+fieldset {
+    display: block;
+    border: none;
+}
+textarea {
+    width: 100%;
+    height: 40vh;
+    font-family: monospace;
+    font-size: 1.4em;
+    padding: 1em;
+}
+dd {
+    margin-left: 0;
+    font-weight: bolder;
+}
+dd:before {
+    content: "Q: ";
+}
+dt:before {
+    content: "A: ";
+}
+code {
+    font-size: 1.4em;
+    display: block;
+    background: lightgray;
+    padding: 1em;
+}
+code::selection {
+    background: lightyellow;
+}
+code::-moz-selection {
+    background: lightyellow;
+}
+button {
+    background: lightgreen;
+    border: none;
+    padding: 1em;
+    font-size: 1.2em;
+    cursor: pointer;
+}
+#success {
+    background: lightgreen;
+    padding: 1em;
+}
+#error {
+    background: pink;
+    padding: 1em;
+}
+#error:before {
+    content: "Error: ";
+}
+</style>
+</head>
+
+<body>
+
+<h1>Composer data donation</h1>
+<p>Donate your constants and extension info to help improve composer’s library detection</p>
+
+<?php if (isset($error)): ?>
+    <div id="error"><?= $error ?></div>
+<?php endif ?>
+
+<?php if (isset($success)): ?>
+    <div id="success"><?= $success ?></div>
+<?php endif ?>
+
+<dl>
+    <dd>What is this used for?</dd>
+    <dt>The data is used to understand the landscape of different PHP versions and configurations out there. This is used to <a href="https://github.com/composer/composer/pull/9093" target="_blank">expand the library version checking capabilities</a> of composer</dt>
+</dl>
+
+<dl>
+    <dd>What is recorded?</dd>
+    <dt>The tiny PHP script in the background will persist exactly the payload – nothing else. The payload takes all registered constants and the info text of all loaded extensions</dt>
+</dl>
+
+<dl>
+    <dd>How to donate?</dd>
+    <dt>
+        Run this little script, paste the output into the field below and hit donate
+
+        <code>php -r 'echo json_encode(array(array_map(function($v){return gettype($v)."(".var_export($v,true).")";},get_defined_constants()),array_map(function($ext){$r=new ReflectionExtension($ext);ob_start();$r->info();return array($ext, ob_get_clean());}, get_loaded_extensions())));echo PHP_EOL;'</code>
+    </dt>
+</dl>
+
+<dl>
+    <dd>Who is behind this?</dd>
+    <dt><a href="https://twitter.com/lstrojny" target="_blank">Lars Strojny</a></dt>
+</dl>
+
+<dl>
+    <dd>Can I see the source code behind this?</dd>
+    <dt><a href="https://github.com/lstrojny/composer-data-donation" target="_blank">Sure thing</a></dt>
+</dl>
+
+<form method="post" action="/composer-data-donation/">
+    <fieldset>
+        <label for="data">Data payload</label>
+        <textarea name="data"><?= $data ?></textarea>
+    </fieldset>
+    <fieldset>
+        <button type="submit">Donate</button>
+    </fieldset>
+</form>
+
+</body>
+
+</html>
