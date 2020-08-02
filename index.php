@@ -5,7 +5,7 @@ function controller(array $post) {
     if (isset($post['data'])) {
         $data = $post['data'];
         if (strlen($data) > 1024 * 1024) {
-            return array('error' => 'Submitted data is more than 1K');
+            return array('error' => 'Submitted data is more than 1M');
         }
         $data = trim($data);
         if (strlen($data) === 0) {
