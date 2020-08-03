@@ -1,5 +1,7 @@
-<html
+<!DOCTYPE html>
+<html lang="en">
 <head>
+<meta charset="utf-8">
 <title>Composer data donation</title>
 <style>
 body {
@@ -70,23 +72,22 @@ button {
 }
 </style>
 </head>
-
 <body>
 
 <h1>Composer data donation</h1>
-<p>Donate your constants and extension info to help improve composer’s library detection</p>
+<p>Donate your constants and extension info to help improve Composer’s library detection</p>
 
 <?php if (isset($error)): ?>
-    <div id="error"><?= $error ?></div>
+    <div id="error"><?= htmlspecialchars($error) ?></div>
 <?php endif ?>
 
 <?php if (isset($success)): ?>
-    <div id="success"><?= $success ?></div>
+    <div id="success"><?= htmlspecialchars($success) ?></div>
 <?php endif ?>
 
 <dl>
     <dd>What is this used for?</dd>
-    <dt>The data is used to understand the landscape of different PHP versions and configurations out there. This is used to <a href="https://github.com/composer/composer/pull/9093" target="_blank">expand the library version checking capabilities</a> of composer</dt>
+    <dt>The data is used to understand the landscape of different PHP versions and configurations out there. This is used to <a href="https://github.com/composer/composer/pull/9093" target="_blank">expand the library version checking capabilities</a> of Composer</dt>
 </dl>
 
 <dl>
@@ -116,7 +117,7 @@ button {
 <form method="post" action="/composer-data-donation/">
     <fieldset>
         <label for="data">Data payload</label>
-        <textarea name="data"><?= $data ?></textarea>
+        <textarea name="data"><?= htmlspecialchars($data) ?></textarea>
     </fieldset>
     <fieldset>
         <button type="submit">Donate</button>
@@ -124,5 +125,4 @@ button {
 </form>
 
 </body>
-
 </html>
