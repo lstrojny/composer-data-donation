@@ -18,7 +18,7 @@ function controller(array $post): array
         return ['error' => 'Submitted data is empty'];
     }
 
-    json_decode($data);
+    json_decode($data, true, 1024, 0b0001);
     if (json_last_error() !== JSON_ERROR_NONE) {
         return [
             'error' => 'Submitted data is invalid JSON. Please make sure you have copied the whole payload',
